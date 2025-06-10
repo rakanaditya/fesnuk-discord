@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-const db = require('../../db'); // Pastikan path database sudah benar
+const db = require('../../db'); // Pastikan path sudah benar
 
 const OWNER_ID = '628205121704296458'; // ID Developer
 
@@ -14,10 +14,10 @@ module.exports = {
     try {
       // Cek apakah pengguna adalah Owner
       if (interaction.user.id !== OWNER_ID) {
-        return interaction.reply({ content: '❌ Kamu tidak memiliki izin untuk menjalankan perintah ini.', ephemeral: true });
+        return interaction.reply({ content: '❌ Kamu tidak memiliki izin untuk menjalankan perintah ini.', flags: 64 });
       }
 
-      await interaction.deferReply({ ephemeral: true });
+      await interaction.deferReply({ flags: 64 });
 
       // Format tanggal
       const now = new Date();
@@ -45,8 +45,14 @@ module.exports = {
       // Simpan ke file JSON
       fs.writeFileSync(filePath, JSON.stringify(rows, null, 2));
 
-      // Baca file sebagai Buffer untuk AttachmentBuilder
+      // Gunakan Buffer untuk membaca file sebelum dijadikan Attachment
       const fileBuffer = fs.readFileSync(filePath);
+
+      // Pastikan Buffer valid sebelum digunakan dalam AttachmentBuilder
+      if (!fileBuffer || fileBuffer.length === 0) {
+        throw new Error('File buffer tidak valid atau kosong.');
+      }
+
       const file = new AttachmentBuilder(fileBuffer, { name: fileName });
 
       await interaction.editReply({
@@ -55,8 +61,8 @@ module.exports = {
       });
 
     } catch (error) {
-      console.error(`[BACKUP] Terjadi kesalahan: ${error.message}`);
-      return interaction.editReply({ content: '❌ Terjadi kesalahan saat membuat backup.', ephemeral: true });
+      console.error(`[BACKUP] Terjadi kesalahan: ${error.message}\nStack Trace: ${error.stack}`);
+      return interaction.editReply({ content: `❌ Terjadi kesalahan: ${error.message}`, flags: 64 });
     }
   }
 };
