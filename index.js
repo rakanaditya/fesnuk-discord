@@ -1,10 +1,12 @@
 const fs = require('node:fs');
 const path = require('node:path');
-
+global.ReadableStream = require('stream/web').ReadableStream;
 const express = require('express');
 const axios = require('axios');
 const quickhook = require('quick.hook');
 const moment = require('moment');
+
+
 
 const { Client, Collection, GatewayIntentBits, Events, ActivityType, Partials, REST, Routes, AttachmentBuilder  } = require('discord.js');
 const { clientId, guildId, token, prefix } = require('./config.json'); //client id bot/ guild id server/ token bot/ prefix ra!
