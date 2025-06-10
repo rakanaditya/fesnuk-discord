@@ -37,6 +37,8 @@ Pastikan untuk melakukan konfigurasi berikut sebelum menjalankan bot:
     node index.js
     ```
 
+Link server [DISCORD] (https://discord.gg/qjnSUrv3aa))
+
 ## 📷 Preview
 Berikut contoh tampilan bot saat digunakan:
 Link : https://i.imgur.com/a/iW4lh7S
