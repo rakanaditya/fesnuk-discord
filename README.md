@@ -1,14 +1,18 @@
-# fesnuk-discord
-simple bot discord fesnuk
+# Fesnuk Discord Bot
 
-# Note
-- GANTI TOKEN BOT
-- TAMBAHKAN/GANTI PREFIX
-- GANTI ID SERVER
-- TAMBAHKAN ID CLIENT BOT
-- TAMBAHKAN ROLE facebook di server kalian
-- TAMBAHKAN log-fb 
-- TAMBAHKAN log-fb-admin
-- TAMBAHKAN log-postingan-facebook / GANTI ID CHANNELS
-- GANTI OWNER ID DENGAN ID KALIAN
-- SCRIPT COMMANDS BACKUP, MUNGKIN AGAK ERROR, kalian bisa fix in sendiri
+Fesnuk is a simple yet powerful Discord bot designed for seamless integration with Facebook-related logs. This bot helps manage and automate interactions with Facebook posts within your Discord server.
+
+## Preview
+![Fesnuk Discord Bot](https://i.imgur.com/abcd123.png)
+
+## Features
+- **Facebook Role Management**: Automatically assign roles based on Facebook interactions.
+- **Logging System**: Tracks Facebook posts and user activity.
+- **Custom Prefixes**: Easily change bot prefix for commands.
+- **Backup & Error Handling**: Ensures reliable functionality with scheduled backups.
+
+## Setup Instructions
+1. **Clone the Repository**:
+   ```sh
+   git clone https://github.com/your-username/fesnuk-discord.git
+   cd fesnuk-discord
