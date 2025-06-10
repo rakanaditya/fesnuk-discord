@@ -1,18 +1,50 @@
 # Fesnuk Discord Bot
 
-Fesnuk is a simple yet powerful Discord bot designed for seamless integration with Facebook-related logs. This bot helps manage and automate interactions with Facebook posts within your Discord server.
+Bot Discord sederhana untuk mengelola fitur-fitur tertentu di server.
 
-## Preview
-![Fesnuk Discord Bot](https://i.imgur.com/abcd123.png)
+## 📌 Pengaturan Awal
+Pastikan untuk melakukan konfigurasi berikut sebelum menjalankan bot:
+- **GANTI TOKEN BOT** pada `.env` atau `config.json`
+- **TAMBAHKAN/GANTI PREFIX** sesuai kebutuhan
+- **GANTI ID SERVER** agar sesuai dengan server yang digunakan
+- **TAMBAHKAN ID CLIENT BOT** untuk pengenalan API
+- **TAMBAHKAN ROLE** `facebook` di server kalian
+- **TAMBAHKAN log channels** berikut:
+  - `log-fb`
+  - `log-fb-admin`
+  - `log-postingan-facebook` (GANTI ID CHANNEL)
+- **GANTI OWNER ID** dengan ID kalian
+- **SCRIPT COMMANDS BACKUP**, mungkin ada error yang perlu diperbaiki
 
-## Features
-- **Facebook Role Management**: Automatically assign roles based on Facebook interactions.
-- **Logging System**: Tracks Facebook posts and user activity.
-- **Custom Prefixes**: Easily change bot prefix for commands.
-- **Backup & Error Handling**: Ensures reliable functionality with scheduled backups.
+## 🚀 Fitur
+- Logging aktivitas Facebook ke Discord
+- Manajemen pengguna berdasarkan role
+- Otomatisasi postingan ke grup tertentu
+- Dan masih banyak lagi!
 
-## Setup Instructions
-1. **Clone the Repository**:
-   ```sh
-   git clone https://github.com/your-username/fesnuk-discord.git
-   cd fesnuk-discord
+## 🛠 Instalasi
+1. Clone repository:
+    ```sh
+    git clone https://github.com/user/fesnuk-discord.git
+    ```
+2. Install dependencies:
+    ```sh
+    npm install
+    ```
+3. Konfigurasi token dan prefix sesuai kebutuhan.
+4. Jalankan bot:
+    ```sh
+    node index.js
+    ```
+
+## 📷 Preview
+Berikut contoh tampilan bot saat digunakan:
+
+![Preview Fesnuk](https://i.imgur.com/abcd123.png)
+
+## 💡 Catatan
+Pastikan semua konfigurasi sudah benar sebelum menjalankan bot. Jika mengalami kendala, silakan periksa dokumentasi atau lakukan debugging.
+
+---
+
+Kalau ada yang mau ditambah atau dimodifikasi, tinggal bilang aja! 🔥
