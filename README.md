@@ -40,11 +40,7 @@ Pastikan untuk melakukan konfigurasi berikut sebelum menjalankan bot:
 ## 📷 Preview
 Berikut contoh tampilan bot saat digunakan:
 
-![Preview Fesnuk](https://i.imgur.com/abcd123.png)
+![Preview Fesnuk]([https://i.imgur.com/abcd123.png](https://imgur.com/a/iW4lh7S))
 
 ## 💡 Catatan
 Pastikan semua konfigurasi sudah benar sebelum menjalankan bot. Jika mengalami kendala, silakan periksa dokumentasi atau lakukan debugging.
-
----
-
-Kalau ada yang mau ditambah atau dimodifikasi, tinggal bilang aja! 🔥
