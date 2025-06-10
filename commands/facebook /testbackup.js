@@ -4,6 +4,7 @@ const path = require('path');
 const db = require('../../db'); // Pastikan path database sudah benar
 
 const OWNER_ID = '628205121704296458'; // ID Developer
+const LOG_CHANNEL_ID = '1381904053599993947'; // ID channel log backup
 
 module.exports = {
   category: 'developer',
@@ -49,9 +50,9 @@ module.exports = {
 
       fs.writeFileSync(filePath, JSON.stringify(rows, null, 2));
 
-      const logChannel = interaction.guild.channels.cache.find(ch => ch.name === 'log-fb-admin');
+      const logChannel = interaction.guild.channels.cache.get(LOG_CHANNEL_ID);
       if (!logChannel) {
-        return interaction.editReply('❌ Channel `#log-fb-admin` tidak ditemukan.');
+        return interaction.editReply(`❌ Channel dengan ID **${LOG_CHANNEL_ID}** tidak ditemukan.`);
       }
 
       const file = new AttachmentBuilder(filePath);
@@ -62,7 +63,7 @@ module.exports = {
           files: [file],
         });
 
-        await interaction.editReply(`✅ Backup berhasil dan dikirim ke #log-fb-admin.`);
+        await interaction.editReply(`✅ Backup berhasil dan dikirim ke channel dengan ID **${LOG_CHANNEL_ID}**.`);
       } catch (err) {
         console.error('[TESTBACKUP] Gagal mengirim file:', err);
         await interaction.editReply('❌ Gagal mengirim file ke channel.');
