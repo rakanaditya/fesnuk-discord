@@ -1,19 +1,19 @@
-const { SlashCommandBuilder, AttachmentBuilder, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-const db = require('../../db'); // Ganti sesuai path database SQLite kamu
+const db = require('../../db'); // Pastikan path database sudah benar
+
+const OWNER_ID = '628205121704296458'; // ID Developer
 
 module.exports = {
   category: 'developer',
   data: new SlashCommandBuilder()
     .setName('testbackup')
-    .setDescription('🔧 Menjalankan backup database secara manual (test).')
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator) // opsional tambahan di builder
+    .setDescription('🔧 Menjalankan backup database secara manual (test).'),
 
-  ,
   async execute(interaction) {
-    // Cek apakah user memiliki permission Administrator
-    if (!interaction.memberPermissions.has(PermissionFlagsBits.Administrator)) {
+    // Cek apakah user adalah Owner
+    if (interaction.user.id !== OWNER_ID) {
       return interaction.reply({
         content: '❌ Kamu tidak memiliki izin untuk menjalankan perintah ini.',
         ephemeral: true
