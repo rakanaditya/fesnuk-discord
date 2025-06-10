@@ -118,7 +118,7 @@ client.on(Events.InteractionCreate, async interaction => {
 client.on('messageCreate', message => {
     if (message.author.bot) return; // Abaikan pesan dari bot
 
-    const allowedGuildId = '798751181508837376'; // Ganti dengan ID server Rakan Aditya Community
+    const allowedGuildId = '798751181508837376'; // Ganti dengan ID server Rakan Aditya Community atau kalian
 
     if (message.guild?.id !== allowedGuildId) {
         return message.channel.send('⚠️ Bot ini hanya dapat digunakan di **Rakan Aditya Community**.\nJoin server di sini: https://discord.gg/qjnSUrv3aa');
