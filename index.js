@@ -93,17 +93,23 @@ client.on(Events.InteractionCreate, async interaction => {
     const command = client.commands.get(interaction.commandName);
     if (!command) return;
 
-
- applyCooldown(interaction, command);
+    // Pastikan fungsi cooldown ada sebelum digunakan
+    if (typeof applyCooldown === 'function') {
+        applyCooldown(interaction, command);
+    }
 
     try {
         await command.execute(interaction);
         console.log(`Menjalankan command: ${interaction.commandName}`);
     } catch (error) {
         console.error(error);
-        interaction.replied
-            ? await interaction.followUp({ content: 'Error executing this command!', ephemeral: true })
-            : await interaction.reply({ content: 'Error executing this command!', ephemeral: true });
+
+        // Pastikan menangani error dengan pengecekan `deferred`
+        if (interaction.deferred || interaction.replied) {
+            await interaction.followUp({ content: '❌ Error saat menjalankan perintah!', ephemeral: true });
+        } else {
+            await interaction.reply({ content: '❌ Error saat menjalankan perintah!', ephemeral: true });
+        }
     }
 });
 
