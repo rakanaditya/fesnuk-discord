@@ -76,22 +76,27 @@ module.exports = {
           return interaction.reply({ content: '❌ Password atau kode backup salah.', ephemeral: true });
         }
 
-        // Tambahkan role dengan pengecekan owner
-        try {
-          const role = interaction.guild.roles.cache.find(r => r.name === 'facebook');
-          if (!role || !role.editable) {
-            if (OWNER_IDS.includes(userId)) {
-              await interaction.member.roles.add(role);
-            } else {
-              return interaction.reply({ content: '❌ Role `facebook` tidak bisa diberikan.', ephemeral: true });
-            }
-          } else {
-            await interaction.member.roles.add(role);
-          }
-        } catch (error) {
-          console.error(`[LOGIN] Error assigning role: ${error.message}`);
-          return interaction.reply({ content: '❌ Gagal memberikan role.', ephemeral: true });
-        }
+       // Tambahkan role dengan pengecekan owner dan notifikasi jika role tidak ditemukan
+try {
+  const role = interaction.guild.roles.cache.find(r => r.name === 'facebook');
+  
+  if (!role) {
+    return interaction.reply({ content: '❌ Role `facebook` tidak ditemukan. Harap buat role terlebih dahulu sebelum menambahkannya.', ephemeral: true });
+  }
+  
+  if (!role.editable) {
+    if (OWNER_IDS.includes(userId)) {
+      await interaction.member.roles.add(role);
+    } else {
+      return interaction.reply({ content: '❌ Role `facebook` tidak bisa diberikan.', ephemeral: true });
+    }
+  } else {
+    await interaction.member.roles.add(role);
+  }
+} catch (error) {
+  console.error(`[LOGIN] Error assigning role: ${error.message}`);
+  return interaction.reply({ content: '❌ Gagal memberikan role.', ephemeral: true });
+}
 
         // Update login status
         db.run(`UPDATE users SET login = 'iya' WHERE id = ?`, [userId], (err) => {
