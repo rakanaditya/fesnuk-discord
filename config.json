@@ -1,7 +1,7 @@
 {
-    "token": "asdwaasdeGm-55sF29Lt7edwovKqwk",
-  "clientId": "855507385727582268",
+    "token": "YOUR_TOKEN_BOT",
+  "clientId": "ID_CLIENT_BOT",
   "prefix": "ra!",
-  "ownerID": "628205121704296458",
-    "guildId": "1379123125735915640"
+  "ownerID": "OWNER_ID",
+    "guildId": "SERVER_ID"
 }
