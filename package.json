@@ -5,7 +5,7 @@
   "main": "node index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "backup": "node backupScheduler.js",
+    "autobackup": "node autoBackup.js",
     "start": "node index.js"
   },
   "repository": {
@@ -24,6 +24,7 @@
   "author": "Testing",
   "license": "ISC",
   "dependencies": {
+    "18": "^0.0.0",
     "@google/genai": "^1.4.0",
     "axios": "^1.9.0",
     "bcrypt": "^6.0.0",
