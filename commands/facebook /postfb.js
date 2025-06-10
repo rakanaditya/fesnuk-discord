@@ -22,7 +22,7 @@ module.exports = {
     const userId = interaction.user.id;
     const content = interaction.options.getString('content');
     const imageUrl = interaction.options.getString('image');
-    const postChannelId = '1380933517546094713';
+    const postChannelId = '1381909232529575987';
     const ownerID = "628205121704296458"; // ID owner bot
 
     db.get(`SELECT * FROM users WHERE id = ?`, [userId], async (err, row) => {
