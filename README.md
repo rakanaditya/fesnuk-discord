@@ -50,5 +50,9 @@ Berikut contoh tampilan bot saat digunakan:
 Link : https://i.imgur.com/a/iW4lh7S
 ![Preview Fesnuk](https://i.imgur.com/cofpbeX.png))
 
+![Preview Register Fesnuk](https://i.imgur.com/lCx99Lu.png)
+
+![Preview Login Fesnuk](https://i.imgur.com/rE0ok71.png)
+
 ## 💡 Catatan
 Pastikan semua konfigurasi sudah benar sebelum menjalankan bot. Jika mengalami kendala, silakan periksa dokumentasi atau lakukan debugging.
