@@ -36,8 +36,14 @@ Pastikan untuk melakukan konfigurasi berikut sebelum menjalankan bot:
     ```sh
     node index.js
     ```
+### 📊 GitHub Stats
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=rakanaditya&show_icons=true&theme=radical)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=rakanaditya&layout=compact&theme=radical)
 
 Link server [DISCORD] (https://discord.gg/qjnSUrv3aa))
+
+### ☕ Support Me
+If you enjoy my work, consider [buying me a coffee](https://trakteer.id/RakanAditya/tip)!
 
 ## 📷 Preview
 Berikut contoh tampilan bot saat digunakan:
