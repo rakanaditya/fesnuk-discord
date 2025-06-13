@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const db = require('../../db'); // Pastikan path sudah benar
@@ -34,7 +34,7 @@ module.exports = {
 
       const filePath = path.join(backupDir, fileName);
 
-      // Ambil data dari database dengan async/await
+      // Ambil data dari database
       const rows = await new Promise((resolve, reject) => {
         db.all('SELECT * FROM users', [], (err, result) => {
           if (err) reject(err);
@@ -45,19 +45,9 @@ module.exports = {
       // Simpan ke file JSON
       fs.writeFileSync(filePath, JSON.stringify(rows, null, 2));
 
-      // Gunakan Buffer untuk membaca file sebelum dijadikan Attachment
-      const fileBuffer = fs.readFileSync(filePath);
-
-      // Pastikan Buffer valid sebelum digunakan dalam AttachmentBuilder
-      if (!fileBuffer || fileBuffer.length === 0) {
-        throw new Error('File buffer tidak valid atau kosong.');
-      }
-
-      const file = new AttachmentBuilder(fileBuffer, { name: fileName });
-
+      // Tanggapan sukses tanpa mengirim file
       await interaction.editReply({
-        content: `✅ Backup berhasil dibuat dengan nama \`${fileName}\`.`,
-        files: [file],
+        content: `✅ Backup berhasil disimpan di server dengan nama file \`${fileName}\`.`,
       });
 
     } catch (error) {
