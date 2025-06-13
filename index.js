@@ -10,7 +10,8 @@ const moment = require('moment');
 
 const { Client, Collection, GatewayIntentBits, Events, ActivityType, Partials, REST, Routes, AttachmentBuilder  } = require('discord.js');
 const { clientId, guildId, token, prefix } = require('./config.json'); //client id bot/ guild id server/ token bot/ prefix ra!
-const backupScheduler = require('./backupScheduler'); // backup data
+
+
 
 const wait = require('node:timers/promises').setTimeout;
 const cron = require('node-cron');
@@ -24,6 +25,9 @@ const client = new Client({
     ],
     partials: Object.values(Partials),
 });
+
+const backupScheduler = require('./backupScheduler');
+backupScheduler.setClient(client);
 
 
 client.commands = new Collection();
@@ -56,13 +60,6 @@ fs.readdirSync(eventsPath).filter(file => file.endsWith('.js')).forEach(file => 
     client[event.once ? 'once' : 'on'](event.name, (...args) => event.execute(...args));
 });
 
-// Backup Scheduler
-setInterval(() => {
-    const now = new Date();
-    if (now.getDate() === 1 && now.getHours() === 0 && now.getMinutes() === 0) {
-        backupScheduler.manualBackup();
-    }
-}, 60 * 1000);
 
 // Rate Limit Cooldown
 const applyCooldown = (interaction, command) => {
@@ -118,7 +115,7 @@ client.on(Events.InteractionCreate, async interaction => {
 client.on('messageCreate', message => {
     if (message.author.bot) return; // Abaikan pesan dari bot
 
-    const allowedGuildId = '798751181508837376'; // Ganti dengan ID server Rakan Aditya Community atau kalian
+    const allowedGuildId = '798751181508837376'; // Ganti dengan ID server Rakan Aditya Community
 
     if (message.guild?.id !== allowedGuildId) {
         return message.channel.send('⚠️ Bot ini hanya dapat digunakan di **Rakan Aditya Community**.\nJoin server di sini: https://discord.gg/qjnSUrv3aa');
