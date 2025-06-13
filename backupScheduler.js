@@ -2,36 +2,26 @@ const cron = require('node-cron');
 const fs = require('fs');
 const path = require('path');
 const db = require('./db');
-const { AttachmentBuilder } = require('discord.js');
-const now = new Date();
+
 let client = null;
 
 function setClient(botClient) {
   client = botClient;
 }
 
-// Konversi bulan ke nama lokal
+// Nama bulan lokal
 const monthNames = [
   'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
   'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
 ];
 
-const day = String(now.getDate()).padStart(2, '0');         // 01
-const monthName = monthNames[now.getMonth()];               // Juni
-const year = now.getFullYear();                             // 2025
-
-const formattedDate = `${day}-${monthName}-${year}`;        // 01-Juni-2025
-const fileName = `backup_${formattedDate}.json`;
-
-
-
-// Jadwal: Setiap tanggal 1 jam 00:00
+// 🔁 Backup setiap month
 cron.schedule('0 0 1 * *', () => {
   if (!client) return console.warn('[BACKUP] Client belum di-set.');
-  doMonthlyBackup(client);
+  doMinuteBackup(client);
 });
 
-function doMonthlyBackup(client) {
+function doMinuteBackup(client) {
   db.all('SELECT * FROM users', [], async (err, rows) => {
     if (err) {
       console.error('[BACKUP] Gagal mengambil data:', err);
@@ -39,46 +29,35 @@ function doMonthlyBackup(client) {
     }
 
     const now = new Date();
-    const timestamp = now.toISOString().slice(0, 10); // 2025-06-01
-    const monthFolder = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`; // 2025-06
+    const timestamp = now.toISOString().replace(/:/g, '-').slice(0, 16); // Format: 2025-06-13T00-01
+    const day = String(now.getDate()).padStart(2, '0');
+    const monthName = monthNames[now.getMonth()];
+    const year = now.getFullYear();
 
+    const folderName = `${monthName}-${year}`;
     const backupDir = path.join(__dirname, 'backup');
-    const archiveDir = path.join(backupDir, 'archive', `${monthName}-${year}`); 
-    const fileName = `monthly_backup_${timestamp}.json`;
-    
-
- //  const archiveDir = path.join(backupDir, 'archive', `${monthName}-${year}`); 
- //  const filePath = path.join(archiveDir, fileName);
-
-
-
-
-    // Buat folder arsip jika belum ada
-    fs.mkdirSync(archiveDir, { recursive: true });
-
+    const archiveDir = path.join(backupDir, 'archive', folderName);
+    const fileName = `month_backup_${timestamp}.json`;
     const filePath = path.join(archiveDir, fileName);
+
+    // Simpan file (opsional, bisa juga dihapus jika tidak ingin simpan file lokal)
+    fs.mkdirSync(archiveDir, { recursive: true });
     fs.writeFileSync(filePath, JSON.stringify(rows, null, 2));
+    console.log(`[BACKUP] Disimpan secara lokal: ${filePath}`);
 
-    console.log(`[BACKUP] Disimpan & diarsip: ${filePath}`);
+    const CHANNEL_ID = '1381904053599993947'; // ID channel kamu
+    const targetChannel = client.channels.cache.get(CHANNEL_ID);
 
-    const targetChannel = client.channels.cache.find(ch => ch.name === 'log-fb-admin');
     if (!targetChannel) {
-      console.warn('[BACKUP] Channel "log-fb-admin" tidak ditemukan.');
+      console.warn(`[BACKUP] Channel dengan ID ${CHANNEL_ID} tidak ditemukan.`);
       return;
     }
 
-
-
-    const file = new AttachmentBuilder(filePath);
-
     try {
-      await targetChannel.send({
-        content: `📦 **Backup Bulanan** (${monthFolder})`,
-        files: [file],
-      });
-      console.log('[BACKUP] File dikirim ke log-fb-admin.');
+      await targetChannel.send(`✅ **Backup berhasil disimpan** (${timestamp})`);
+      console.log('[BACKUP] Pesan status backup terkirim.');
     } catch (err) {
-      console.error('[BACKUP] Gagal mengirim file ke channel:', err);
+      console.error('[BACKUP] Gagal mengirim pesan ke channel:', err);
     }
   });
 }
