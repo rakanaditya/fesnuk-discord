@@ -5,7 +5,7 @@
   "main": "node index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "autobackup": "node autoBackup.js",
+    "autobackup": "node backupScheduler.js",
     "start": "node index.js"
   },
   "repository": {
